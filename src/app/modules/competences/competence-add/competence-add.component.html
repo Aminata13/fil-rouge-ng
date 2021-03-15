@@ -1,1 +1,102 @@
-<p>competence-add works!</p>
+<div class="container">
+  <button (click)="goBack()" class="btn btn-light btn-circle">
+    <i class="fab fas fa-arrow-left"></i>
+  </button>
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Ajouter une compétence</h1>
+            </div>
+            <form id='add-form' class="user" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+              <div class="form-group row">
+                <div class="col-sm-12 mb-3 mb-sm-0">
+                  <input type="text" class="form-control" id="exampleFirstName" placeholder="Libelle*"
+                    formControlName="libelle" required />
+                  <div class="error-input" *ngIf="libelle?.invalid && libelle?.touched">
+                    <div *ngIf="libelle?.errors?.required">
+                      Le libelle est obligatoire
+                    </div>
+                    <div *ngIf="libelle?.errors?.minlength">
+                      Le libelle doit avoir au moins 3 lettres.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <p-multiSelect display="chip" class="multiselect-custom select" formControlName="groupeCompetences"
+                [options]="groupeCompetences" defaultLabel="Choisir un groupe de compétence*"
+                optionLabel="libelle" optionValue="@id"></p-multiSelect>
+                <div class="error-input" *ngIf="groupes?.invalid && groupes?.touched">
+                  <div *ngIf="groupes?.errors?.required">
+                    La compétence doit être assignée à un groupe de compétences.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="level1-tab" data-toggle="tab" href="#level1" role="tab" aria-controls="level1"
+                        aria-selected="true">Niveau 1</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="level2-tab" data-toggle="tab" href="#level2" role="tab" aria-controls="level2"
+                        aria-selected="false">Niveau 2</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="level3-tab" data-toggle="tab" href="#level3" role="tab" aria-controls="level3"
+                        aria-selected="false">Niveau 3</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent" formArrayName="niveauEvaluations">
+                    <!-- class show et active. aria-labelledly -->
+                    <div [ngClass]="{'show active': tempIndex == i}" *ngFor="let n of niveaux.controls; let i=index" class="tab-pane fade" id="level{{i+1}}" role="tabpanel" aria-labelledby="level-tab">
+                      <div formGroupName="{{i}}" class="row mt-4">
+                        <div class="col ml-4">
+                          <h6 class="level-header">Groupe d'actions à réaliser</h6>
+                          <div>
+                            <div class="form-group">
+                              <input formControlName="groupeAction" type="text" class="form-control">
+                              <div class="error-input" *ngIf="n.get('groupeAction')?.invalid && n.get('groupeAction')?.touched">
+                                <div *ngIf="n.get('groupeAction')?.errors?.required">
+                                  Le groupe d'action est obligatoire.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <h6 class="level-header">Critères d'évaluation</h6>
+                          <div>
+                            <div class="form-group">
+                              <input formControlName="critereEvaluation" type="text" class="form-control">
+                              <div class="error-input" *ngIf="n.get('critereEvaluation')?.invalid && n.get('critereEvaluation')?.touched">
+                                <div *ngIf="n.get('critereEvaluation')?.errors?.required">
+                                  Le critère d'évaluation est obligatoire.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              *Tous les trois niveaux sont obligatoires.
+              <hr>
+              <button [disabled]="!addForm.valid" type="submit" class="btn btn-primary btn-user btn-block btn-color">
+                Enregistrer
+              </button>
+              <hr>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

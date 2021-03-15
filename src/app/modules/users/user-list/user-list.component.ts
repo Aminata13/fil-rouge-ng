@@ -1,92 +1,79 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
-import { PrimeNGConfig } from 'primeng/api';
-import { Customer, Representative } from './customer';
-import { CustomerService } from './customer.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from '../user.service';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  users: any;
+  currentUser: any;
+  firstname: string = '';
+  option: boolean = true;
 
-  customers: Customer[] = [];
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+  page = 1;
+  total: number = 7;
 
-    selectedCustomers: Customer[] = [];
+  constructor(private userSrv: UserService, private sanitizer: DomSanitizer) {
+  }
 
-    representatives: Representative[] = [];
+  ngOnInit(): void {
+    this.getUsers();
+    this.getCurrentUser();
+  }
 
-    statuses: any[] = [];
+  getUsers() {
+    const params = this.getRequestParams(this.firstname, this.page, this.pageSize);
+    this.userSrv.findAll(params).subscribe((data: any) => {
+      this.users = data['hydra:member'];
+      this.total = +data['hydra:totalItems'];
+    });
+  }
 
-    loading: boolean = true;
+  getCurrentUser() {
+    const user = localStorage.getItem('currentUser')!;
+    this.currentUser = JSON.parse(user);
+  }
 
-    @ViewChild('dt')  table!: Table;
+  handlePageChange(event: number) {
+    this.page = event;
+    this.getUsers();
+  }
 
-    constructor(private customerService: CustomerService, private primengConfig: PrimeNGConfig) { }
+  handlePageSizeChange(event: any) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getUsers();
+  }
 
-    ngOnInit() {
-        this.customerService.getCustomersLarge().then(customers => {
-            this.customers = customers;
-            this.loading = false;
-        });
+  getRequestParams(firstname: string, page: number, pageSize: number): any {
+    let params: any = {};
 
-        this.representatives = [
-            {name: "Amy Elsner", image: 'amyelsner.png'},
-            {name: "Anna Fali", image: 'annafali.png'},
-            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
-            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
-            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
-            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
-            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
-            {name: "Onyama Limba", image: 'onyamalimba.png'},
-            {name: "Stephen Shaw", image: 'stephenshaw.png'},
-            {name: "XuXue Feng", image: 'xuxuefeng.png'}
-        ];
-
-        this.statuses = [
-            {label: 'Unqualified', value: 'unqualified'},
-            {label: 'Qualified', value: 'qualified'},
-            {label: 'New', value: 'new'},
-            {label: 'Negotiation', value: 'negotiation'},
-            {label: 'Renewal', value: 'renewal'},
-            {label: 'Proposal', value: 'proposal'}
-        ]
-        this.primengConfig.ripple = true;
+    if (firstname) {
+      params[`firstname`] = firstname;
     }
 
-    onActivityChange(event: any) {
-        const value = event.target.value;
-        if (value && value.trim().length) {
-            const activity = parseInt(value);
+    if (page) {
+      params[`page`] = page;
+    }
 
-            if (!isNaN(activity)) {
-                this.table.filter(activity, 'activity', 'gte');
-            }
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  onDelete(id: number, index: number) {
+    if(confirm("Etes vous sûr de vouloir supprimer cet utilisateur? Cette action est irreversible.")) {
+      this.userSrv.remove(id).subscribe(
+        () => {
+          this.users.splice(index, 1);
         }
+      );
     }
-
-    onDateSelect(value: any) {
-        this.table.filter(this.formatDate(value), 'date', 'equals')
-    }
-
-    formatDate(date: any) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
-
-    onRepresentativeChange(event: any) {
-        this.table.filter(event.value, 'representative', 'in')
-    }
-
+  }
 }

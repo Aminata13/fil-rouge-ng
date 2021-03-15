@@ -1,1 +1,6 @@
-<p>profil-sortie-edit works!</p>
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <input formControlName="libelle" class="form-control" type="text" value="{{profil.libelle}}">
+  <button (click)="onCancel()" type="button" class="btn btn-danger">Annuler</button>
+  <button [disabled]="!editForm.valid" type="submit" class="btn btn-info"
+    style="background-color: #ff6d00;border-color: #ff6d00;">Enregistrer</button>
+</form>

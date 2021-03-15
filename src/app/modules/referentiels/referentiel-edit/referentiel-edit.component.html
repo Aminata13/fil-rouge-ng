@@ -1,1 +1,69 @@
-<p>referentiel-edit works!</p>
+<div class="container">
+  <button (click)="goBack()" class="btn btn-light btn-circle">
+    <i class="fab fas fa-arrow-left"></i>
+  </button>
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row form-container">
+        <div class="col-12">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Modifier le référentiel</h1>
+            </div>
+            <form #editForm="ngForm" class="user" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <input #libelle="ngModel" name="libelle" [(ngModel)]="referentiel.libelle" type="text"
+                  class="form-control" id="exampleFirstName" placeholder="Libelle*" required />
+                <div class="error-input" [hidden]="libelle.valid || libelle.pristine">
+                  Le libelle est obligatoire.
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Présentation*" required #description="ngModel"
+                  [(ngModel)]="referentiel.description" name="description" class="form-control" rows="3"></textarea>
+                <div class="error-input" [hidden]="description.valid || description.pristine">
+                  La description est obligatoire.
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Critère(s) d'admission*" required #admissions="ngModel"
+                  [(ngModel)]="referentiel.critereAdmissions" name="admissions" class="form-control"
+                  rows="3"></textarea>
+                <div class="error-input" [hidden]="admissions.valid || admissions.pristine">
+                  Veuillez remplir au moins un critère d'admission.
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Critère(s) d'évaluation*" required #evaluations="ngModel"
+                  [(ngModel)]="referentiel.critereEvaluations" name="evaluations" class="form-control"
+                  rows="3"></textarea>
+                <div class="error-input" [hidden]="evaluations.valid || evaluations.pristine">
+                  Veuillez remplir au moins un critère d'évaluation.
+                </div>
+              </div>
+              <div class="form-group">
+                <p-multiSelect #skills="ngModel" display="chip" class="multiselect-custom select"
+                  [(ngModel)]="referentiel.groupeCompetences" [options]="groupeCompetences" name="skills"
+                  defaultLabel="Choisir un groupe de compétence*" optionLabel="libelle" optionValue="@id" required>
+                </p-multiSelect>
+                <div class="error-input" [hidden]="skills.valid || skills.pristine">
+                  Veuillez choisir au moins un groupe de compétence.
+                </div>
+              </div>
+              <div class="form-group">
+                <p-fileUpload required #fubauto mode="basic" [auto]="true" chooseLabel="Uploader le programme"
+                  accept=".pdf" name="file" [customUpload]="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
+              </div>
+              <hr>
+              <button [disabled]="!editForm.valid" type="submit" class="btn btn-primary btn-user btn-block btn-color">
+                Enregistrer
+              </button>
+              <hr>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="main-body">
+
+    <!-- Breadcrumb -->
+    <button (click)="goBack()" class="btn btn-light btn-circle">
+      <i class="fab fas fa-arrow-left"></i>
+    </button>
+    <!-- /Breadcrumb -->
+
+    <div class="card shadow mb-4 ml-4">
+      <div class="card-body">
+        <div class="row gutters-sm">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <img src="data:image/JPEG;base64,{{user?.avatar}}"
+                    onerror="this.src='../../../assets/placeholder.jpg';" alt="user profil image" class="rounded-circle image">
+                  <div class="mt-3">
+                    <h4>{{user?.firstname | titlecase}} {{user?.lastname | titlecase}}</h4>
+                    <p class="mb-1 badge badge-secondary">{{user?.profil?.libelle | uppercase}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Nom d'utilisateur</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.username}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.email}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Téléphone 1</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    (+221) {{user?.firstPhoneNumber}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Téléphone 2</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    (+221) {{user?.secondPhoneNumber}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">CNI</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.cni}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Adresse</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.address}}
+                  </div>
+                </div>
+
+              </div>
+              <button class="btn btn-edit">Modifier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

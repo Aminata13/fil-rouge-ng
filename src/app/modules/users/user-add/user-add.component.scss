@@ -1,0 +1,41 @@
+.avatar {
+  margin-top: 12%;
+}
+.avatar img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+.btn-avatar {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 0.75rem 1rem;
+}
+.btn-color {
+  background-color: #338f8e;
+  color: white;
+  border-color: #338f8e;
+  margin-top: 2%;
+}
+.error-input {
+  color: #e74a3b;
+  margin-top: 1px;
+  margin-left: 10px;
+  font-size: 12px;
+}
+.error-select {
+  margin-left: 23%;
+}
+.btn-file-text {
+  font-weight: bold;
+  margin: 2% 0% 0% 35%;
+}
+.btn-file {
+  background-color:#338f8e;
+  border-radius: 10rem;
+  color: white;
+  padding: 0.3rem 1.6rem;
+}
+input[type="file"] {
+  display: none;
+}

@@ -1,0 +1,15 @@
+input {
+  float: left;
+  width: 70%;
+}
+button {
+  float: right;
+  margin-right: 2px;
+}
+.ng-valid[required], .ng-valid.required  {
+  border: 2px solid #1cc88a; /* green */
+}
+
+.ng-touched.ng-invalid:not(form)  {
+  border: 2px solid #e74a3b; /* red */
+}

@@ -1,0 +1,50 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-4 text-gray-800">Liste des apprenants avec le profil de sortie {{profil?.libelle | titlecase}} </h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4 ml-4" style="clear: both;">
+    <div class="card-header py-3">
+      <button (click)="goBack()" class="btn btn-light btn-circle">
+        <i class="fab fas fa-arrow-left"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <p *ngIf="apprenants?.length == 0">Pas d'apprenants avec ce profil de sortie.</p>
+      <div *ngIf="apprenants?.length > 0" class="table-responsive">
+        <table class="table table-bordered" id="da" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Nom d'utilisateur</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Avatar</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Nom d'utilisateur</th>
+              <th>Email</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr *ngFor="let apprenant of apprenants; index as i;">
+              <td><img class="avatar" src="data:image/JPEG;base64,{{apprenant.avatar}}" onerror="this.src='../../../assets/placeholder.jpg';" alt="apprenant profil image"></td>
+              <td>{{apprenant.lastname}}</td>
+              <td>{{apprenant.firstname}}</td>
+              <td>{{apprenant.username}}</td>
+              <td>{{apprenant.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

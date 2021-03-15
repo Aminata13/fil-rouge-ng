@@ -11095,3 +11095,16 @@ body.sidebar-toggled footer.sticky-footer {
   background-color: #338f8e;
   color: white;
 }
+.ng-valid[required], .ng-valid.required  {
+  border-left: 2px solid  #338f8e; /* green */
+}
+
+.ng-touched.ng-invalid:not(form)  {
+  border-left: 2px solid #e74a3b; /* red */
+}
+.error-input {
+  color: #e74a3b;
+  margin-top: 1px;
+  margin-left: 10px;
+  font-size: 12px;
+}

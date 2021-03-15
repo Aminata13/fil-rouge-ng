@@ -1,1 +1,168 @@
-<p>user-edit works!</p>
+
+<div class="container">
+  <button (click)="goBack()" class="btn btn-light btn-circle">
+    <i class="fab fas fa-arrow-left"></i>
+  </button>
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row">
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="avatar d-flex flex-column align-items-center text-center">
+            <img [src]="imageSrc"
+              alt="user profil image" class="rounded-circle">
+            <div class="mt-3">
+              <label class="btn-file">
+                <input form="add-form" (change)="onFileChange($event)" [formControl]="file" required type="file" class="form-control-file" id="inpFile">Upload avatar
+              </label>
+            </div>
+            <div class="error-input" *ngIf="file?.invalid && file?.dirty">
+              <div *ngIf="file?.errors?.required">
+                L'avatar est obligatoire.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Modifier l'utilisateur</h1>
+            </div>
+            <form id='add-form' class="user" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="exampleFirstName"
+                    placeholder="Prénom*"
+                    formControlName="firstname" required
+                  />
+                  <div class="error-input" *ngIf="firstname?.invalid && firstname?.touched">
+                    <div *ngIf="firstname?.errors?.required">
+                      Le prénom est obligatoire
+                    </div>
+                    <div *ngIf="firstname?.errors?.minlength">
+                      Le prénom doit avoir au moins 3 lettres.
+                    </div>
+                    <div *ngIf="firstname?.errors?.pattern">
+                      Le prénom ne doit contenir que des lettres.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="exampleLastName"
+                    placeholder="Nom*"
+                    formControlName="lastname" required
+                  />
+                  <div class="error-input" *ngIf="lastname?.invalid && lastname?.touched">
+                    <div *ngIf="lastname?.errors?.required">
+                      Le nom est obligatoire
+                    </div>
+                    <div *ngIf="lastname?.errors?.minlength">
+                      Le nom doit avoir au moins 3 lettres.
+                    </div>
+                    <div *ngIf="lastname?.errors?.pattern">
+                      Le nom ne doit contenir que des lettres.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="examplePhoneNumber"
+                    placeholder="Téléphone 1* Ex: 776024632"
+                    formControlName="firstPhoneNumber" required
+                  />
+                  <div class="error-input" *ngIf="firstPhoneNumber?.invalid && firstPhoneNumber?.touched">
+                    <div *ngIf="firstPhoneNumber?.errors?.required">
+                      Le numéro de téléphone est obligatoire
+                    </div>
+                    <div *ngIf="firstPhoneNumber?.errors?.pattern">
+                      Le numéro de téléphone doit correspondre à un numéro sénégalais.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="examplePhoneNumber2"
+                    placeholder="Téléphone 2 Ex: 339544632"
+                    formControlName="secondPhoneNumber"
+                  />
+                  <div class="error-input" *ngIf="secondPhoneNumber?.invalid && secondPhoneNumber?.touched">
+                    <div *ngIf="secondPhoneNumber?.errors?.pattern">
+                      Le numéro de téléphone doit correspondre à un numéro sénégalais.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="exampleCni"
+                    placeholder="CNI"
+                    formControlName="cni"
+                  />
+                  <div class="error-input" *ngIf="cni?.invalid && cni?.touched">
+                    <div *ngIf="cni?.errors?.pattern">
+                      Le numéro d'identification nationale doit correspondre au format sénégalais.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control form-control-user"
+                    id="exampleAdress"
+                    placeholder="Adresse*"
+                    formControlName="address" required
+                  />
+                  <div class="error-input" *ngIf="address?.invalid && address?.touched">
+                    <div *ngIf="address?.errors?.required">
+                      L'adresse est obligatoire
+                    </div>
+                    <div *ngIf="address?.errors?.minlength">
+                      L'adresse doit avoir au moins 3 lettres.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control form-control-user"
+                  id="exampleInputEmail"
+                  placeholder="Email*"
+                  formControlName="email" required
+                />
+                <div class="error-input" *ngIf="email?.invalid && email?.touched">
+                  <div *ngIf="email?.errors?.required">
+                    L'adresse email est obligatoire.
+                  </div>
+                  <div *ngIf="email?.errors?.pattern">
+                    L'adresse email n'est pas valide.
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <button [disabled]="!editForm.valid" type="submit" class="btn btn-primary btn-user btn-block btn-color">
+                Enregistrer
+              </button>
+              <hr>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

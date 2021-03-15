@@ -4597,14 +4597,16 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #4e73df;
+  // color: #4e73df;
+  color: #338f8e;
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #224abe;
+  // color: #224abe;
+  color: #338f8e;
   text-decoration: none;
   background-color: #eaecf4;
   border-color: #dddfeb;
@@ -4630,8 +4632,10 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  // background-color: #4e73df;
+  // border-color: #4e73df;
+  background-color:  #338f8e;
+  border-color:  #338f8e;
 }
 
 .page-item.disabled .page-link {
@@ -11214,9 +11218,9 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
 
 .btn-add {
   color: #fff;
-  background-color: #ff6d00;
-  border-color: #ff6d00;
-  float: right;
+  background-color: #338f8e;
+  background-image: linear-gradient(180deg, #4e9796 10%, #338f8e 100%);
+  margin-top: 19px;
 }
 .fa-info-circle {
   color: #1cc88a;
@@ -11230,4 +11234,32 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
 }
 .fa-trash {
   color: red;
+}
+.accordion-text {
+  color: #fa7814;
+}
+.accordion-title {
+  font-style: bold;
+}
+.custom-badge {
+  color: #858796;
+  border: 1px solid #fd6d2a;
+  background-color: transparent;
+}
+.accordion-icons .fa-edit {
+  color: #fd6d2a;
+}
+.accordion-icons .fa-times {
+  color: red;
+}
+.p-multiselect .p-multiselect-label {
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+.p-button {
+  background: #fd6d2a;
+  border: 1px solid #fd6d2a;
 }

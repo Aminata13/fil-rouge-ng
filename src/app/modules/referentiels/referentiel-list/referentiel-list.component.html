@@ -4,7 +4,7 @@
   <h1 class="h3 mb-4 text-gray-800">Référentiels</h1>
 
   <!-- Add button -->
-  <a [routerLink]="['/dashboard/users/add']" class="btn btn-add btn-icon-split mb-4">
+  <a [routerLink]="['/dashboard/referentiels/add']" class="btn btn-add btn-icon-split mb-4">
     <span class="icon text-white-50">
       <i class="fas fa-plus"></i>
     </span>
@@ -12,7 +12,7 @@
   </a>
 
   <!-- DataTales Example -->
-  <div class="card shadow mb-4 ml-4"  style="clear: both;">
+  <div class="card shadow mb-4 ml-4" style="clear: both;">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">
         Liste des référentiels
@@ -20,114 +20,108 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div id="accordion1">
+        <div *ngFor="let r of referentiels | paginate: { id: 'list',
+        itemsPerPage: 3,
+        currentPage: page,
+        totalItems: total };  let i=index" [class.active]="i == page" id="accordion{{i}}" class="col mr-4 mb-4">
           <div class="card">
             <div class="card-header">
-              <h5 class="mb-0">Libelle</h5>
+              <h5 class="mb-0 accordion-text">{{r.libelle}}
+                <span class="accordion-icons" style="float: right;">
+                  <i class="fa fa-info-circle"></i>
+                  <i [routerLink]="['/dashboard/referentiels/edit', r.id]" class="fas fa-edit"></i>
+                  <i (click)="onDelete(r.id, i)" class="fas fa-times"></i>
+                </span>
+              </h5>
             </div>
           </div>
           <div class="card">
-            <div class="card-header" id="headingOne">
+            <div class="card-header" id="heading{{i}}">
               <h5 class="mb-0">
-                <button class="btn btn-accordion" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne">
-                  Description
+                <button class="btn btn-link accordion-text" data-toggle="collapse" [attr.data-target]="'#collapse'+ i"
+                  aria-expanded="true" [attr.aria-controls]="'collapse'+ i">
+                  Présentation
                 </button>
               </h5>
             </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div id="collapse{{i}}" class="collapse" [attr.aria-labelledby]="'heading'+ i">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
+                {{r.description}}
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="card-header" id="headingTwo">
+            <div class="card-header" id="heading-g{{i}}">
               <h5 class="mb-0">
-                <button class="btn btn-accordion collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                  aria-expanded="false" aria-controls="collapseTwo">
-                  Compétences
+                <button class="btn btn-link collapsed accordion-text" data-toggle="collapse"
+                  [attr.data-target]="'#collapse-g'+ i" aria-expanded="false" [attr.aria-controls]="'collapse-g'+ i">
+                  Groupes de Compétences
                 </button>
               </h5>
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div id="collapse-g{{i}}" class="collapse" [attr.aria-labelledby]="'heading-g'+ i">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
+                <span *ngFor="let g of r.groupeCompetences" class="badge badge-light mr-1 custom-badge"> {{g.libelle}}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading-ca{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed accordion-text" data-toggle="collapse"
+                  [attr.data-target]="'#collapse-ca'+ i" aria-expanded="false" [attr.aria-controls]="'collapse-ca'+ i">
+                  Critères d'admission
+                </button>
+              </h5>
+            </div>
+            <div id="collapse-ca{{i}}" class="collapse" [attr.aria-labelledby]="'heading-ca'+ i">
+              <div class="card-body">
+                {{r.critereAdmissions}}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading-ce{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed accordion-text" data-toggle="collapse"
+                  [attr.data-target]="'#collapse-ce'+ i" aria-expanded="false" [attr.aria-controls]="'collapse-ce'+ i">
+                  Critères d'Evaluation
+                </button>
+              </h5>
+            </div>
+            <div id="collapse-ce{{i}}" class="collapse" [attr.aria-labelledby]="'heading-ce'+ i">
+              <div class="card-body">
+                {{r.critereEvaluations}}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading-pdf{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link accordion-text" data-toggle="collapse"
+                  [attr.data-target]="'#collapse-pdf'+ i" aria-expanded="true" [attr.aria-controls]="'collapse-pdf'+ i">
+                  Programme
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapse-pdf{{i}}" class="collapse" [attr.aria-labelledby]="'heading-pdf'+ i">
+              <div class="card-body">
+                <pdf-viewer src="data:application/PDF;base64{{r.programme}}" [render-text]="true" [render-text-mode]=2 [autoresize]="true"></pdf-viewer>
               </div>
             </div>
           </div>
         </div>
-        <div id="accordion2">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="mb-0">Libelle</h5>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button class="btn btn-accordion" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
-                  aria-controls="collapseThree">
-                  Description
-                </button>
-              </h5>
-            </div>
-            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="heading>Four">
-              <h5 class="mb-0">
-                <button class="btn btn-accordion collapsed" data-toggle="collapse" data-target="#collapseFour"
-                  aria-expanded="false" aria-controls="collapseFour">
-                  Compétences
-                </button>
-              </h5>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div style="float: right;">
+            <pagination-controls class="my-pagination" id="list" (pageChange)="handlePageChange($event)"
+              (pageBoundsCorrection)="handlePageChange($event)" [autoHide]="option" [responsive]="option"
+              previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page" screenReaderCurrentLabel="Vous êtes sur la page">
+            </pagination-controls>
           </div>
         </div>
       </div>

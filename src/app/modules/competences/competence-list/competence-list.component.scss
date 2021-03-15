@@ -1,0 +1,24 @@
+.nav-link, .level-header {
+  color: #fd6d2a;
+}
+.competences {
+  margin-top: 7%;
+}
+.competences h5 {
+  display: inline;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.competence-active {
+  background-color: #fd6d2a;
+  color: white;
+}
+
+button {
+  float: right;
+  margin-right: 2px;
+}
+
+.btn-add {
+  float: right;
+}

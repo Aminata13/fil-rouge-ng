@@ -4,7 +4,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul [ngClass]="{'toggled': toggle === true}" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLink]="['/dashboard']">
@@ -46,6 +46,13 @@
           <span>Profils</span></a>
       </li>
 
+      <!-- Nav Item - Profils de Sortie -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/dashboard/profil-sorties']">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Profils de Sortie</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -56,40 +63,33 @@
 
       <!-- Nav Item - Briefs Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" [routerLink]="['/dashboard']" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-table"></i>
           <span>Briefs</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Crud</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <a class="collapse-item">Lister</a>
+            <a class="collapse-item">Ajouter</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Rendus</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item">Livrables</a>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - Pages-now promo Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" [routerLink]="['/dashboard/promotions/add']" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" [routerLink]="['/dashboard/promotions/add']" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true" aria-controls="collapsePage">
           <i class="fas fa-fw fa-table"></i>
           <span>Promos</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <h6 class="collapse-header">Eléments</h6>
+            <a class="collapse-item">Apprenants</a>
+            <a class="collapse-item">Groupes</a>
           </div>
         </div>
       </li>
@@ -120,13 +120,6 @@
         <a class="nav-link" [routerLink]="['/dashboard']">
           <i class="fas fa-fw fa-table"></i>
           <span>Groupe de Tags</span></a>
-      </li>
-
-      <!-- Nav Item - Profils de Sortie -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/dashboard/profil-sorties']">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Profils de Sortie</span></a>
       </li>
 
       <!-- Divider -->
@@ -162,7 +155,7 @@
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
+      <div (click)="toggle=!toggle" class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
 
@@ -222,18 +215,19 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" [routerLink]="['/dashboard']" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Aminata BA</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user?.firstname}} {{user?.lastname | uppercase}}</span>
+                <img class="img-profile rounded-circle" src="data:image/JPEG;base64,{{user?.avatar}}"
+                onerror="this.src='../../../assets/placeholder.jpg';" alt="user profil image">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" [routerLink]="['/dashboard']">
+                <a class="dropdown-item" [routerLink]="['/dashboard/users', user?.id]">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" [routerLink]="['/dashboard']" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item logout" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -275,15 +269,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Prêt à partir?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">Cliquez sur se déconnecter si vous voulez quitter.</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <button id="btn-dismiss" class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+          <a class="btn btn-primary" (click)="logout()">Se déconnecter</a>
         </div>
       </div>
     </div>

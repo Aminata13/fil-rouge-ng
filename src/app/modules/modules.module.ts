@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserAddComponent } from './users/user-add/user-add.component';
 import { UserProfilListComponent } from './user-profils/user-profil-list/user-profil-list.component';
-import { UserProfilAdddComponent } from './user-profils/user-profil-addd/user-profil-addd.component';
 import { UserProfilEditComponent } from './user-profils/user-profil-edit/user-profil-edit.component';
 import { CompetenceListComponent } from './competences/competence-list/competence-list.component';
 import { CompetenceAddComponent } from './competences/competence-add/competence-add.component';
@@ -32,9 +33,22 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
+import { FieldsetModule} from 'primeng/fieldset';
+import { ChipsModule } from 'primeng/chips';
+import { FileUploadModule } from 'primeng/fileupload';
 
-import { CustomerService } from './users/user-list/customer.service';
 import { UserComponent } from './users/user.component';
+import { UserProfilAddComponent } from './user-profils/user-profil-add/user-profil-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserProfilComponent } from './user-profils/user-profil.component';
+import { UserProfilShowComponent } from './user-profils/user-profil-show/user-profil-show.component';
+import { ProfilSortieShowComponent } from './profil-sorties/profil-sortie-show/profil-sortie-show.component';
+import { ProfilSortieComponent } from './profil-sorties/profil-sortie.component';
+import { UserShowComponent } from './users/user-show/user-show.component';
+import { CompetenceComponent } from './competences/competence.component';
+import { GroupeCompetenceComponent } from './groupe-competences/groupe-competence.component';
+import { ReferentielComponent } from './referentiels/referentiel.component';
+
 
 @NgModule({
   declarations: [
@@ -42,11 +56,11 @@ import { UserComponent } from './users/user.component';
     UserEditComponent,
     UserAddComponent,
     UserProfilListComponent,
-    UserProfilAdddComponent,
     UserProfilEditComponent,
     CompetenceListComponent,
     CompetenceAddComponent,
     CompetenceEditComponent,
+    GroupeCompetenceComponent,
     GroupeCompetenceListComponent,
     GroupeCompetenceAddComponent,
     GroupeCompetenceEditComponent,
@@ -57,7 +71,15 @@ import { UserComponent } from './users/user.component';
     ProfilSortieListComponent,
     ProfilSortieAddComponent,
     ProfilSortieEditComponent,
-    UserComponent
+    UserComponent,
+    UserProfilComponent,
+    UserProfilAddComponent,
+    UserProfilShowComponent,
+    ProfilSortieComponent,
+    ProfilSortieShowComponent,
+    UserShowComponent,
+    CompetenceComponent,
+    ReferentielComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +94,14 @@ import { UserComponent } from './users/user.component';
     InputTextModule,
     ProgressBarModule,
     DropdownModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    FieldsetModule,
+    PdfViewerModule,
+    ChipsModule,
+    FileUploadModule
   ],
-  providers: [CustomerService],
+  providers: [],
 })
 export class ModulesModule {}

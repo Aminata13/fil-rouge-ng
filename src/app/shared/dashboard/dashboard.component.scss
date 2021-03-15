@@ -11001,3 +11001,11 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+.btn-primary {
+  color: white !important;
+  background-color: #338f8e;
+  border-color: #338f8e;
+}
+.logout {
+  cursor: pointer;
+}
